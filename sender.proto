@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package sender;
+
+service SenderService {
+  rpc confirmEmail (Token) returns (Status);
+  rpc confirmPayout (ConfirmPayout) returns (Status);
+  rpc signUp (Empty) returns (Status);
+  rpc resetPassword (Reset) returns (Status);
+  rpc successResetPassword (Empty) returns (Status);
+  rpc successPayment (Payment) returns (Status);
+  rpc successPayout (Payout) returns (Status);
+  rpc moderationPayout (Payout) returns (Status);
+  rpc changeWallet (Reset) returns (Status);
+  rpc fullStructure (Link) returns (Status);
+  rpc reward (RewardRequest) returns (Status);
+  rpc sendNotification(SendNotification) returns (Status);
+}
+
+message SendNotification{
+  string email = 1;
+  string message = 2;
+  string lang = 3;
+}
+
+message Status {
+  bool status = 1;
+}
+
+message Token {
+  string lang = 1;
+  string email = 2;
+  string token = 3;
+}
+
+message Empty {
+  string lang = 1;
+  string email = 2;
+}
+
+message Reset {
+  string lang = 1;
+  string email = 2;
+  string token = 3;
+  string ip = 4;
+  string browser = 5;
+}
+
+message Payment {
+  string lang = 1;
+  string email = 2;
+  double amount = 3;
+  int32 places = 4;
+  double charity = 5;
+  string txid = 6;
+}
+
+message Payout {
+  string lang = 1;
+  string email = 2;
+  double amount = 3;
+  string wallet = 4;
+  string txid = 5;
+}
+
+message Link {
+  string lang = 1;
+  string email = 2;
+  string link = 3;
+}
+
+message ConfirmPayout {
+  string lang = 1;
+  string email = 2;
+  string wallet = 3;
+  string ip = 4;
+  string browser = 5;
+  string code = 6;
+}
+
+message RewardRequest {
+  string lang = 1;
+  string email = 2;
+  double amount = 3;
+  int32 places = 4;
+  repeated Reward rewards = 5;
+}
+
+message Reward {
+  string link = 1;
+  double amount = 2;
+  int32 place = 3;
+}
